@@ -20,8 +20,8 @@ public class BookClient {
 //	 }
 
 	public static void main(String[] args) throws TException {
-		int id = 13;
-		String bookName="akas";
+		int id = 15;
+		String bookName="akas1";
 		String authorName="Ads1";
 
 		// TODO Auto-generated method stub
@@ -36,9 +36,10 @@ public class BookClient {
 		System.out.println(bookClient.getAllbook());
 		System.out.println("book added with id "+id);
 		System.out.println("Book deleted with id"+id);
-	      //bookClient.deletebook(id);
+
+	     //bookClient.deletebook(id);
 		//System.out.println(bookClient.updatebook(id,bookName,authorName));
-      // System.out.println("Book generated here"+bookClient.getbook(id));
+       //System.out.println("Book generated here"+bookClient.getbook(id));
         
         
 		/*TSocket transport = new TSocket("localhost",8083);

@@ -6,10 +6,10 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,18 +28,34 @@ public class BookController {
 
 	@Autowired
 	private BookRepository repository;
+	private MongoTemplate mongoTemplate;
 
 	@PostMapping("/books")
 	public String saveBook(@RequestBody Book book, HttpServletResponse httpRes, Throwable ex) {
 
 		if (repository.existsById(book.getId())) {
-			httpRes.setStatus(HttpStatus.BAD_REQUEST.value());
-			// System.out.println("h");
-			return "duplicate id";
+			while(repository.existsById(book.getId())) {
+				int x=book.getId();
+				x++;
+				book.setId(x);
+				
+				
+				
+			}
+			repository.save(book);
+			
+			return "Added book with id : " + book.getId();
+			
+			
+			
+			/*httpRes.setStatus(HttpStatus.BAD_REQUEST.value());
+			
+			return "duplicate id";*/
 		} else {
 			// System.out.println("y");
 
 			repository.save(book);
+		
 			return "Added book with id : " + book.getId();
 		}
 
@@ -50,21 +66,36 @@ public class BookController {
 	
 	
 	
-
+   public BookController(MongoTemplate mongoTemplate) {
+	   this.mongoTemplate=mongoTemplate;
+	   
+   }
 	@GetMapping("/books")
 	public List<Book> getBooks() {
-		return repository.findAll(Sort.by("id"));
+		/*Query query=new Query().addCriteria(Criteria.where("bookName").is("akas"));
+		return mongoTemplate.find(query,Book.class);*/
+		//return repository.booksgreaterthannumber();
+		
+	return repository.findAll(Sort.by("id"));
+
+
 		
 		//return repository.findAllpage(1,new PageRequest(0,3,Direction.ASC,"id")) ;
 		//return List<Book> findByOrderByIdAsc;
 
-		//return repository.findAll().sort();
+
 	}
 
 	@PutMapping("/books/{id}")
 	public String update(@RequestBody Book book, @PathVariable int id, HttpServletResponse httpRes, Throwable ex) {
 		if (repository.existsById(id)) {
+
+
+
+
+
 			repository.save(book);
+
 			return "updated";
 		} else {
 			httpRes.setStatus(HttpStatus.NOT_FOUND.value());
@@ -89,6 +120,8 @@ public class BookController {
 		}
 	}
 
+	
+	
 	@DeleteMapping("/booksAll")
 	public String deleteallbook() {
 		repository.deleteAll();

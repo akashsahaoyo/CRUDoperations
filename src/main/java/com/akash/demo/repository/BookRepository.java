@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.akash.demo.model.Book;
+import org.springframework.data.mongodb.repository.Query;
 
 public interface BookRepository extends MongoRepository<Book, Integer>{
 
@@ -19,6 +20,11 @@ public interface BookRepository extends MongoRepository<Book, Integer>{
 
 	void save(String bookName);
 	
-	
+	@Query("{'bookName':{$regex: '^A.*'}}")
+	public List<Book> bookstartingwithA();
+
+	@Query("{'id':{$gte: 19}}")
+	public List<Book> booksgreaterthannumber();
+
 
 }

@@ -1,5 +1,8 @@
 package com.akash.demo.thrift;
-
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +11,7 @@ import java.util.Optional;
 import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 
 import com.akash.demo.model.Book;
@@ -19,6 +23,7 @@ public class BookServiceHandler implements BookService.Iface{
 	
 	@Autowired
 	private BookRepository repo;
+	private MongoTemplate mongoTemplate;
 
 	@Override
 	public String addbook(int id, String bookName, String authorName) throws BadRequestException, TException {
@@ -48,6 +53,7 @@ public class BookServiceHandler implements BookService.Iface{
 	@Override
 	public Mybook getbook(int id) throws BookNotFoundException, TException {
 		Optional<Book> book = repo.findById(id);
+
 		if(book.isPresent()) {
 			Book dbBook = book.get();
 			Mybook b=new Mybook();
@@ -99,10 +105,13 @@ public class BookServiceHandler implements BookService.Iface{
 
 @Override
 	public String getAllbook() throws TException {
-		List<Book> b=new ArrayList<>();
-		
+	/*Query query=new Query().addCriteria(Criteria.where("bookName").is("akas"));
+	return mongoTemplate.find(query,Book.class).toString();*/
 
-		b=repo.findAll(Sort.by("id"));
+		List<Book> b=new ArrayList<>();
+	b=repo.booksgreaterthannumber();
+
+		//b=repo.findAll(Sort.by("id"));
 
 		return b.toString();
 	//Arrays.toString(b);
