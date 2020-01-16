@@ -16,6 +16,7 @@ public interface BookRepository extends MongoRepository<Book, Integer>{
 
 	void save(Mybook book);
 
+	void1 saved(String bookName);
 	void save(long id);
 
 	void save(String bookName);
