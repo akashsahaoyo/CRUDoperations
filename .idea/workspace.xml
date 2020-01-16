@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e8484951-6890-4a87-a406-4f747dd17d6c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/akash/demo/resource/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/akash/demo/resource/BookController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +123,7 @@
       <workItem from="1577691447036" duration="18308000" />
       <workItem from="1577943624084" duration="2488000" />
       <workItem from="1577947232833" duration="5928000" />
-      <workItem from="1579160208245" duration="872000" />
+      <workItem from="1579160208245" duration="2522000" />
     </task>
     <servers />
   </component>
