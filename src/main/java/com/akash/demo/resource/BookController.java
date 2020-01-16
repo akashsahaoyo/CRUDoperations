@@ -30,46 +30,46 @@ public class BookController {
 	private BookRepository repository;
 	private MongoTemplate mongoTemplate;
 
-	@PostMapping("/books")
-	public String saveBook(@RequestBody Book book, HttpServletResponse httpRes, Throwable ex) {
-
-		if (repository.existsById(book.getId())) {
-			while(repository.existsById(book.getId())) {
-				int x=book.getId();
-				x++;
-				book.setId(x);
-				
-				
-				
-			}
-			repository.save(book);
-			
-			return "Added book with id : " + book.getId();
-			
-			
-			
-			/*httpRes.setStatus(HttpStatus.BAD_REQUEST.value());
-			
-			return "duplicate id";*/
-		} else {
-			// System.out.println("y");
-
-			repository.save(book);
-		
-			return "Added book with id : " + book.getId();
-		}
-
-	}
-	
-	
-	
-	
-	
-	
-   public BookController(MongoTemplate mongoTemplate) {
-	   this.mongoTemplate=mongoTemplate;
-	   
-   }
+//	@PostMapping("/books")
+//	public String saveBook(@RequestBody Book book, HttpServletResponse httpRes, Throwable ex) {
+//
+//		if (repository.existsById(book.getId())) {
+//			while(repository.existsById(book.getId())) {
+//				int x=book.getId();
+//				x++;
+//				book.setId(x);
+//
+//
+//
+//			}
+//			repository.save(book);
+//
+//			return "Added book with id : " + book.getId();
+//
+//
+//
+//			/*httpRes.setStatus(HttpStatus.BAD_REQUEST.value());
+//
+//			return "duplicate id";*/
+//		} else {
+//			// System.out.println("y");
+//
+//			repository.save(book);
+//
+//			return "Added book with id : " + book.getId();
+//		}
+//
+//	}
+//
+//
+//
+//
+//
+//
+//   public BookController(MongoTemplate mongoTemplate) {
+//	   this.mongoTemplate=mongoTemplate;
+//
+//   }
 	@GetMapping("/books")
 	public List<Book> getBooks() {
 		/*Query query=new Query().addCriteria(Criteria.where("bookName").is("akas"));
